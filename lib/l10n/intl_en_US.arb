@@ -1,0 +1,10 @@
+{
+  "@@locale": "en_US",
+  "app_title": "Data Flows",
+  "home_title": "Home",
+  "mall_title": "Mall",
+  "discover_title": "Discover",
+  "inbox_title": "Inbox",
+  "account_title": "Account",
+  "feature_not_implemented": "This feature is not implemented yet."
+}
