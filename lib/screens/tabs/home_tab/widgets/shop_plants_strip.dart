@@ -1,9 +1,64 @@
 part of '../home_tab.dart';
 
-class _ShopPlantsStrip extends StatelessWidget {
+class _ShopPlantsStrip extends StatefulWidget {
   final List<_HomeCategoryData> categories;
 
   const _ShopPlantsStrip({required this.categories});
+
+  @override
+  State<_ShopPlantsStrip> createState() => _ShopPlantsStripState();
+}
+
+class _ShopPlantsStripState extends State<_ShopPlantsStrip> {
+  final ScrollController _scrollController = ScrollController();
+  final ValueNotifier<(bool, bool)> _fades = ValueNotifier<(bool, bool)>((false, false));
+  bool _boundaryUpdateScheduled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_scheduleBoundaryUpdate);
+    _scheduleBoundaryUpdate();
+  }
+
+  @override
+  void didUpdateWidget(covariant _ShopPlantsStrip oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _scheduleBoundaryUpdate();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scheduleBoundaryUpdate);
+    _scrollController.dispose();
+    _fades.dispose();
+    super.dispose();
+  }
+
+  void _scheduleBoundaryUpdate() {
+    if (_boundaryUpdateScheduled) {
+      return;
+    }
+    _boundaryUpdateScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+      _boundaryUpdateScheduled = false;
+      if (!mounted) {
+        return;
+      }
+      _updateBoundaries();
+    });
+  }
+
+  void _updateBoundaries() {
+    if (!_scrollController.hasClients || !_scrollController.position.hasContentDimensions) {
+      return;
+    }
+    final ScrollPosition position = _scrollController.position;
+    _fades.value = (
+      position.pixels > position.minScrollExtent + 0.5,
+      position.pixels < position.maxScrollExtent - 0.5,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,71 +66,127 @@ class _ShopPlantsStrip extends StatelessWidget {
     return ColoredBox(
       color: theme.scaffoldBackgroundColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: kPadding),
+        padding: const EdgeInsets.fromLTRB(kPadding * 1.5, 0, kPadding, kPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Center(
-              child: Image.asset(
-                'assets/images/Shop Plants - Icon Main.png',
-                width: 160,
-                fit: BoxFit.contain,
-                semanticLabel: Lang.of(context).shop_plants_title,
-              ),
-            ),
-            const SizedBox(height: kSpacing),
             // TODO dummy data / flow
             // Enable category selection after its filtering behavior is defined.
-            SingleChildScrollView(
-              key: const PageStorageKey<String>('home_shop_plants_scroll'),
-              scrollDirection: Axis.horizontal,
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: kPadding),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  for (int index = 0; index < categories.length; index++)
-                    Semantics(
-                      selected: index == 0,
-                      child: SizedBox(
-                        width: 88,
-                        child: Column(
-                          children: <Widget>[
-                            Image.asset(
-                              'assets/icons/Shop Plants - Icon ${categories[index].assetIndex}.png',
-                              width: 48,
-                              height: 48,
-                              fit: BoxFit.contain,
-                              excludeFromSemantics: true,
-                            ),
-                            const SizedBox(height: kSpacing / 2),
-                            Text(
-                              categories[index].label,
-                              textAlign: TextAlign.center,
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: theme.colorScheme.primary,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(height: kSpacing / 2),
-                            SizedBox(
-                              height: 2,
-                              width: 48,
-                              child: ColoredBox(
-                                color: index == 0
-                                    ? theme.colorScheme.primary
-                                    : theme.scaffoldBackgroundColor,
-                              ),
-                            ),
-                          ],
+            Row(
+              children: <Widget>[
+                Image.asset(
+                  'assets/images/Shop Plants - Icon Main.png',
+                  width: 70,
+                  fit: BoxFit.contain,
+                  semanticLabel: Lang.of(context).shop_plants_title,
+                ),
+                const SizedBox(width: kSpacing),
+                Expanded(
+                  child: SizedBox(
+                    height: 54,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: <Widget>[
+                        NotificationListener<ScrollMetricsNotification>(
+                          onNotification: (ScrollMetricsNotification notification) {
+                            _scheduleBoundaryUpdate();
+                            return false;
+                          },
+                          child: ListView.separated(
+                            key: const PageStorageKey<String>('home_shop_plants_scroll'),
+                            controller: _scrollController,
+                            primary: false,
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            padding: EdgeInsets.zero,
+                            itemCount: widget.categories.length,
+                            separatorBuilder: (BuildContext context, int index) => const SizedBox(width: kSpacing),
+                            itemBuilder: (BuildContext context, int index) {
+                              final _HomeCategoryData category = widget.categories[index];
+                              return Semantics(
+                                label: category.label,
+                                selected: index == 0,
+                                child: Container(
+                                  width: 54,
+                                  height: 54,
+                                  padding: const EdgeInsets.all(kSpacing),
+                                  decoration: BoxDecoration(
+                                    color: theme.colorScheme.surface,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Image.asset(
+                                    'assets/icons/Shop Plants - Icon ${category.assetIndex}.png',
+                                    fit: BoxFit.contain,
+                                    excludeFromSemantics: true,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
+                        ValueListenableBuilder<(bool, bool)>(
+                          valueListenable: _fades,
+                          builder: (BuildContext context, (bool, bool) fades, Widget? child) {
+                            return IgnorePointer(
+                              child: Stack(
+                                children: <Widget>[
+                                  if (fades.$1) _buildFade(theme.scaffoldBackgroundColor, true),
+                                  if (fades.$2) _buildFade(theme.scaffoldBackgroundColor, false),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: kSpacing),
+            SizedBox(
+              height: 6,
+              child: Stack(
+                alignment: Alignment.centerLeft,
+                children: <Widget>[
+                  Container(
+                    height: 2,
+                    color: theme.colorScheme.secondary.withValues(alpha: 0.5),
+                  ),
+                  Positioned(
+                    left: 58,
+                    child: Container(
+                      width: 42,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.primary,
+                        borderRadius: BorderRadius.circular(kBorderRadius),
                       ),
                     ),
+                  ),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFade(Color background, bool leading) {
+    return PositionedDirectional(
+      start: leading ? 0 : null,
+      end: leading ? null : 0,
+      top: 0,
+      bottom: 0,
+      width: 24,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: leading ? AlignmentDirectional.centerStart : AlignmentDirectional.centerEnd,
+            end: leading ? AlignmentDirectional.centerEnd : AlignmentDirectional.centerStart,
+            colors: <Color>[background, background.withValues(alpha: 0)],
+          ),
         ),
       ),
     );

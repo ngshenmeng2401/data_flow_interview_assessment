@@ -4,18 +4,20 @@ class _HomeSectionHeading extends StatelessWidget {
   final String title;
   final String? subtitle;
   final bool showViewAll;
+  final bool serviceStyle;
 
   const _HomeSectionHeading({
     required this.title,
     this.subtitle,
     this.showViewAll = false,
+    this.serviceStyle = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
+      padding: serviceStyle ? const EdgeInsets.fromLTRB(kPadding * 1.5, kSpacing * 2, 0, kSpacing / 2) : const EdgeInsets.fromLTRB(
         kPadding, kSpacing * 2, kPadding, kSpacing,
       ),
       child: Row(
@@ -26,8 +28,12 @@ class _HomeSectionHeading extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  title,
-                  style: theme.textTheme.titleLarge?.copyWith(
+                  serviceStyle ? title.toUpperCase() : title,
+                  style: serviceStyle ? theme.textTheme.titleSmall?.copyWith(
+                    color: theme.colorScheme.onSurface,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ) : theme.textTheme.titleLarge?.copyWith(
                     color: theme.colorScheme.primary,
                   ),
                   maxLines: 2,
@@ -35,10 +41,10 @@ class _HomeSectionHeading extends StatelessWidget {
                 ),
                 if (subtitle != null)
                   Padding(
-                    padding: const EdgeInsets.only(top: kSpacing / 2),
+                    padding: EdgeInsets.only(top: serviceStyle ? 0 : kSpacing / 2),
                     child: Text(
                       subtitle!,
-                      style: theme.textTheme.bodySmall,
+                      style: serviceStyle ? theme.textTheme.bodySmall?.copyWith(fontSize: 11) : theme.textTheme.bodySmall,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -55,6 +61,10 @@ class _HomeSectionHeading extends StatelessWidget {
                 onPressed: null,
                 style: TextButton.styleFrom(
                   minimumSize: const Size(48, 48),
+                  padding: serviceStyle ? const EdgeInsets.symmetric(horizontal: kSpacing / 2, vertical: 2) : null,
+                  alignment: serviceStyle ? Alignment.topCenter : null,
+                  disabledForegroundColor: serviceStyle ? theme.colorScheme.onSurfaceVariant : null,
+                  textStyle: serviceStyle ? theme.textTheme.bodySmall?.copyWith(fontSize: 10) : null,
                 ),
                 child: Text(
                   Lang.of(context).view_all_title,

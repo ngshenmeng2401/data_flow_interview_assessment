@@ -53,7 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "posts_title": MessageLookupByLibrary.simpleMessage("POSTS"),
     "pots_title": MessageLookupByLibrary.simpleMessage("Pots"),
     "recommended_for_you": MessageLookupByLibrary.simpleMessage(
-      "Recommended for you",
+      "Recommended based on your preference",
     ),
     "recommended_title": MessageLookupByLibrary.simpleMessage("Recommended"),
     "services_title": MessageLookupByLibrary.simpleMessage("SERVICES"),

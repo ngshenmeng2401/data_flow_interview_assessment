@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 
 part 'home_tab_data.dart';
 part 'widgets/home_header.dart';
-part 'widgets/balance_summary.dart';
 part 'widgets/category_strip.dart';
 part 'widgets/home_section_heading.dart';
 part 'widgets/service_card.dart';
@@ -46,14 +45,11 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _HomeHeader(data: _HomeSampleData.appointment),
-            Padding(
-              padding: const EdgeInsets.all(kPadding),
-              child: _BalanceSummary(
-                credit: NumberFormat.currency(locale: locale, symbol: 'RM ', decimalDigits: 2).format(_HomeSampleData.credit),
-                points: NumberFormat.decimalPattern(locale).format(_HomeSampleData.points),
-                packages: NumberFormat.decimalPattern(locale).format(_HomeSampleData.packages),
-              ),
+            _HomeHeader(
+              data: _HomeSampleData.appointment,
+              credit: NumberFormat.currency(locale: locale, symbol: 'RM', decimalDigits: 2).format(_HomeSampleData.credit),
+              points: NumberFormat.decimalPattern(locale).format(_HomeSampleData.points),
+              packages: NumberFormat.decimalPattern(locale).format(_HomeSampleData.packages),
             ),
             const _HomeAssetImage(
               path: 'assets/images/Home Banner.jpg',
@@ -87,41 +83,78 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
               ),
             ),
             _CategoryStrip(categories: categories),
-            _HomeSectionHeading(title: lang.new_services_title, subtitle: lang.recommended_for_you, showViewAll: true),
-            LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final double cardWidth = ((constraints.maxWidth - kPadding * 2) * 0.6).clamp(180.0, 280.0).toDouble();
-                return SingleChildScrollView(
-                  key: const PageStorageKey<String>('home_services_scroll'),
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: kPadding),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      for (int index = 0; index < _HomeSampleData.services.length; index++) ...<Widget>[
-                        if (index > 0) ...{const SizedBox(width: kSpacing)},
-                        SizedBox(
-                          width: cardWidth,
-                          child: _ServiceCard(data: _HomeSampleData.services[index]),
+            SizedBox(height: kPadding),
+            ColoredBox(
+              color: theme.scaffoldBackgroundColor,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  _HomeSectionHeading(title: lang.new_services_title, subtitle: lang.recommended_for_you, showViewAll: true, serviceStyle: true),
+                  Builder(
+                    builder: (BuildContext context) {
+                      final _ServiceCardLayout layout = _ServiceCardLayout.measure(context, _HomeSampleData.services);
+                      return SizedBox(
+                        height: layout.height,
+                        child: ListView.separated(
+                          key: const PageStorageKey<String>('home_services_scroll'),
+                          primary: false,
+                          scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.symmetric(horizontal: kPadding * 1.5),
+                          itemCount: _HomeSampleData.services.length,
+                          separatorBuilder: (BuildContext context, int index) => const SizedBox(width: kSpacing / 2),
+                          itemBuilder: (BuildContext context, int index) {
+                            return SizedBox(
+                              width: _ServiceCardLayout.width,
+                              child: _ServiceCard(data: _HomeSampleData.services[index], layout: layout),
+                            );
+                          },
                         ),
-                      ],
-                    ],
+                      );
+                    },
                   ),
-                );
-              },
+                  Padding(
+                    padding: const EdgeInsets.only(top: kSpacing * 2),
+                    child: _ShopPlantsStrip(categories: categories),
+                  ),
+                ],
+              ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: kSpacing * 2),
-              child: _ShopPlantsStrip(categories: categories),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: kSpacing * 2, bottom: kSpacing),
-              child: _HomeAssetImage(path: 'assets/images/Trending Discoveries.jpg', aspectRatio: 876 / 346, semanticLabel: lang.trending_discoveries_title),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: kPadding),
-              child: _DiscoveriesGrid(items: _HomeSampleData.discoveries),
+            ColoredBox(
+              color: context.appThemeColors.deepGreen,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  LayoutBuilder(
+                    builder: (BuildContext context, BoxConstraints constraints) {
+                      // Crop the artwork's 24 px outer margins without changing the asset.
+                      final double scale = constraints.maxWidth / 828;
+                      return AspectRatio(
+                        aspectRatio: 828 / 298,
+                        child: ClipRect(
+                          child: OverflowBox(
+                            minWidth: 876 * scale,
+                            maxWidth: 876 * scale,
+                            minHeight: 346 * scale,
+                            maxHeight: 346 * scale,
+                            child: Image.asset(
+                              'assets/images/Trending Discoveries.jpg',
+                              width: 876 * scale,
+                              height: 346 * scale,
+                              fit: BoxFit.contain,
+                              semanticLabel: lang.trending_discoveries_title,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(kPadding, 0, kPadding, kPadding),
+                    child: _DiscoveriesGrid(items: _HomeSampleData.discoveries),
+                  ),
+                ],
+              ),
             ),
             _HomeSectionHeading(title: lang.location_title),
             Padding(

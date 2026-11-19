@@ -194,10 +194,10 @@ class Lang {
     );
   }
 
-  /// `Recommended for you`
+  /// `Recommended based on your preference`
   String get recommended_for_you {
     return Intl.message(
-      'Recommended for you',
+      'Recommended based on your preference',
       name: 'recommended_for_you',
       desc: '',
       args: [],

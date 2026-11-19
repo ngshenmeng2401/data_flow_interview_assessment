@@ -6,38 +6,22 @@ part of 'home_tab.dart';
 // Translate sample payload text when its production data contract is defined.
 class _HomeSampleData {
   static final _HomeAppointmentData appointment = _HomeAppointmentData(
-    date: DateTime(2026, 12, 5, 10, 30),
-    address: 'Sample Garden Studio, Kuala Lumpur',
+    date: DateTime(2020, 10, 14, 12, 30),
+    address: '123 Plant Street, 1/1',
   );
-  static const double credit = 150.0;
-  static const int points = 1200;
-  static const int packages = 3;
+  static const double credit = 100.0;
+  static const int points = 10;
+  static const int packages = 1;
   static const List<_HomeServiceData> services = <_HomeServiceData>[
-    _HomeServiceData(title: 'Plant styling consultation', price: 80),
-    _HomeServiceData(title: 'Repotting and plant care', price: 45),
-    _HomeServiceData(title: 'Home garden consultation', price: 120),
+    _HomeServiceData(label: 'Lorem Ipsum', title: 'Lorem ipsum dolor sit amet consectetur', price: 10),
+    _HomeServiceData(label: 'Lorem Ipsum', title: 'Lorem ipsum dolor sit amet consectetur', price: 10),
+    _HomeServiceData(label: 'Lorem Ipsum', title: 'Lorem ipsum dolor sit amet consectetur', price: 10),
   ];
   static const List<_HomeDiscoveryData> discoveries = <_HomeDiscoveryData>[
-    _HomeDiscoveryData(
-      title: 'A little green for your favourite corner',
-      description: 'Discover simple ways to bring plants into your space.',
-      aspectRatio: 0.8,
-    ),
-    _HomeDiscoveryData(
-      title: 'Find your next indoor plant',
-      description: 'A small addition that makes a room feel alive.',
-      aspectRatio: 1.2,
-    ),
-    _HomeDiscoveryData(
-      title: 'Make room for growing things',
-      description: 'Explore everyday inspiration for your home garden.',
-      aspectRatio: 1.1,
-    ),
-    _HomeDiscoveryData(
-      title: 'Care for your plants, one day at a time',
-      description: 'Give your favourite greenery a little extra attention.',
-      aspectRatio: 0.85,
-    ),
+    _HomeDiscoveryData(label: 'Lorem Ipsum', body: 'Lorem ipsum dolor sit amet consectetur adipiscing elit'),
+    _HomeDiscoveryData(label: 'Lorem Ipsum', body: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Lorem ipsum dolor sit amet'),
+    _HomeDiscoveryData(label: 'Lorem Ipsum', body: 'Lorem ipsum dolor sit amet consectetur adipiscing elit'),
+    _HomeDiscoveryData(label: 'Lorem Ipsum', body: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Lorem ipsum dolor sit amet'),
   ];
   static const List<_HomeBranchData> branches = <_HomeBranchData>[
     _HomeBranchData(
@@ -68,22 +52,18 @@ class _HomeCategoryData {
 }
 
 class _HomeServiceData {
+  final String label;
   final String title;
   final double price;
 
-  const _HomeServiceData({required this.title, required this.price});
+  const _HomeServiceData({required this.label, required this.title, required this.price});
 }
 
 class _HomeDiscoveryData {
-  final String title;
-  final String description;
-  final double aspectRatio;
+  final String label;
+  final String body;
 
-  const _HomeDiscoveryData({
-    required this.title,
-    required this.description,
-    required this.aspectRatio,
-  });
+  const _HomeDiscoveryData({required this.label, required this.body});
 }
 
 class _HomeBranchData {

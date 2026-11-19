@@ -21,26 +21,14 @@ class _CategoryStrip extends StatelessWidget {
             if (index > 0) const SizedBox(width: kSpacing),
             SizedBox(
               width: 80,
-              child: Column(
-                children: <Widget>[
-                  ClipOval(
-                    child: Image.asset(
-                      'assets/icons/Button - Icon ${categories[index].assetIndex}.png',
-                      width: 64,
-                      height: 64,
-                      fit: BoxFit.contain,
-                      excludeFromSemantics: true,
-                    ),
-                  ),
-                  const SizedBox(height: kSpacing / 2),
-                  Text(
-                    categories[index].label,
-                    style: Theme.of(context).textTheme.bodySmall,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+              child: ClipOval(
+                child: Image.asset(
+                  'assets/icons/Button - Icon ${categories[index].assetIndex}.png',
+                  width: 64,
+                  height: 64,
+                  fit: BoxFit.contain,
+                  excludeFromSemantics: true,
+                ),
               ),
             ),
           ],
