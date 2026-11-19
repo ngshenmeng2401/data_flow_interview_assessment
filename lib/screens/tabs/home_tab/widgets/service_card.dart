@@ -1,7 +1,8 @@
 import 'package:data_flow_interview_assessment/constants/dimensions.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab_data.dart';
-import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_content_card.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_asset_image.dart';
 import 'package:data_flow_interview_assessment/utils/app_theme_config.dart';
+import 'package:data_flow_interview_assessment/widgets/content_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -17,9 +18,11 @@ class ServiceCard extends StatelessWidget {
     final String locale = Localizations.localeOf(context).toString();
     // TODO dummy data / flow
     // Enable service details when its destination is defined.
-    return HomeContentCard(
-      imagePath: 'assets/images/Image.jpg',
-      imageSemanticLabel: data.title,
+    return ContentCard(
+      image: HomeAssetImage(
+        path: 'assets/images/Image.jpg',
+        semanticLabel: data.title,
+      ),
       label: data.label,
       body: data.title,
       labelStyle: layout.labelStyle,

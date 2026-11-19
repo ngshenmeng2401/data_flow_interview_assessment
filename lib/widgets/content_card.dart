@@ -1,9 +1,8 @@
-import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_asset_image.dart';
 import 'package:flutter/material.dart';
 
-class HomeContentCard extends StatelessWidget {
-  final String imagePath;
-  final String imageSemanticLabel;
+class ContentCard extends StatelessWidget {
+  final Widget image;
+  final Widget? imageOverlay;
   final String label;
   final String body;
   final TextStyle? labelStyle;
@@ -18,9 +17,8 @@ class HomeContentCard extends StatelessWidget {
   final BorderRadius imageBorderRadius;
   final Clip clipBehavior;
 
-  const HomeContentCard({
-    required this.imagePath,
-    required this.imageSemanticLabel,
+  const ContentCard({
+    required this.image,
     required this.label,
     required this.body,
     required this.labelStyle,
@@ -28,6 +26,7 @@ class HomeContentCard extends StatelessWidget {
     required this.contentPadding,
     required this.labelBodySpacing,
     required this.bodyMaxLines,
+    this.imageOverlay,
     this.textScaler,
     this.border,
     this.footer,
@@ -38,6 +37,7 @@ class HomeContentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Widget? overlay = imageOverlay;
     return Container(
       clipBehavior: clipBehavior,
       decoration: BoxDecoration(
@@ -50,12 +50,14 @@ class HomeContentCard extends StatelessWidget {
         children: <Widget>[
           ClipRRect(
             borderRadius: imageBorderRadius,
-            child: HomeAssetImage(
-              path: imagePath,
-              aspectRatio: 1,
-              fit: BoxFit.contain,
-              semanticLabel: imageSemanticLabel,
-            ),
+            child: overlay == null
+                ? image
+                : Stack(
+                    children: <Widget>[
+                      image,
+                      Positioned(top: 0, right: 0, child: overlay),
+                    ],
+                  ),
           ),
           Padding(
             padding: contentPadding,
