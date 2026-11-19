@@ -23,6 +23,7 @@ class _RootAppState extends State<RootApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       onGenerateTitle: (BuildContext context) => Lang.of(context).app_title,
       theme: AppThemeConfig.light(),
       locale: const Locale('en', 'US'),
