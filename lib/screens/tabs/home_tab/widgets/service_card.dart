@@ -64,7 +64,11 @@ class ServiceCardLayout {
     required this.height,
   });
 
-  factory ServiceCardLayout.measure(BuildContext context, List<HomeServiceData> items) {
+  factory ServiceCardLayout.measure(
+    BuildContext context,
+    List<HomeServiceData> items, {
+    double cardWidth = width,
+  }) {
     final ThemeData theme = Theme.of(context);
     final TextStyle labelStyle = theme.textTheme.labelSmall!.copyWith(
       color: theme.colorScheme.onSurfaceVariant,
@@ -84,10 +88,11 @@ class ServiceCardLayout {
     final NumberFormat priceFormat = NumberFormat.currency(locale: locale.toString(), symbol: 'RM ', decimalDigits: 2);
     double maximumHeight = 0;
     for (final HomeServiceData item in items) {
-      final double textHeight = _measureText(context, item.label, labelStyle, 1) +
-          _measureText(context, '${item.title}\n${item.title}', titleStyle, 2) +
-          _measureText(context, priceFormat.format(item.price), priceStyle, 1);
-      final double cardHeight = borderWidth * 2 + (width - borderWidth * 2) +
+      final double textWidth = cardWidth - borderWidth * 2 - contentPadding.horizontal;
+      final double textHeight = _measureText(context, item.label, labelStyle, 1, textWidth) +
+          _measureText(context, '${item.title}\n${item.title}', titleStyle, 2, textWidth) +
+          _measureText(context, priceFormat.format(item.price), priceStyle, 1, textWidth);
+      final double cardHeight = cardWidth +
           contentPadding.vertical + kSpacing + textHeight;
       if (cardHeight > maximumHeight) {
         maximumHeight = cardHeight;
@@ -101,7 +106,7 @@ class ServiceCardLayout {
     );
   }
 
-  static double _measureText(BuildContext context, String text, TextStyle style, int maxLines) {
+  static double _measureText(BuildContext context, String text, TextStyle style, int maxLines, double maxWidth) {
     final TextPainter painter = TextPainter(
       text: TextSpan(text: text, style: style),
       textDirection: Directionality.of(context),
@@ -110,7 +115,7 @@ class ServiceCardLayout {
       maxLines: maxLines,
       ellipsis: '…',
     );
-    painter.layout(maxWidth: width - borderWidth * 2 - contentPadding.horizontal);
+    painter.layout(maxWidth: maxWidth);
     final double height = painter.height;
     painter.dispose();
     return height;

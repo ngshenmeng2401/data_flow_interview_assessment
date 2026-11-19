@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "featured_title": MessageLookupByLibrary.simpleMessage("Featured"),
     "general_title": MessageLookupByLibrary.simpleMessage("General"),
+    "guest_title": MessageLookupByLibrary.simpleMessage("Guest"),
     "help_centre_title": MessageLookupByLibrary.simpleMessage("Help Centre"),
     "history_title": MessageLookupByLibrary.simpleMessage("History"),
     "home_title": MessageLookupByLibrary.simpleMessage("Home"),
@@ -98,6 +99,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "no_products_found": MessageLookupByLibrary.simpleMessage(
       "No products found.",
     ),
+    "no_services_found": MessageLookupByLibrary.simpleMessage(
+      "No services found.",
+    ),
     "notice_unavailable": MessageLookupByLibrary.simpleMessage(
       "This notice is unavailable.",
     ),
@@ -121,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "recommended_title": MessageLookupByLibrary.simpleMessage("Recommended"),
     "search_salon_title": MessageLookupByLibrary.simpleMessage("Search Salon"),
+    "search_services": MessageLookupByLibrary.simpleMessage("Search services"),
     "services_title": MessageLookupByLibrary.simpleMessage("SERVICES"),
     "shop_plants_title": MessageLookupByLibrary.simpleMessage("Shop Plants"),
     "shop_title": MessageLookupByLibrary.simpleMessage("SHOP"),

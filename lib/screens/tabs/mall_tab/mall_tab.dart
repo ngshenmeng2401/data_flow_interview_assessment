@@ -2,6 +2,7 @@ import 'package:data_flow_interview_assessment/constants/dimensions.dart';
 import 'package:data_flow_interview_assessment/constants/enums.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
 import 'package:data_flow_interview_assessment/utils/app_theme_config.dart';
+import 'package:data_flow_interview_assessment/widgets/app_search_field.dart';
 import 'package:data_flow_interview_assessment/widgets/content_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -117,47 +118,26 @@ class _MallTabState extends State<MallTab> {
               onPressed: widget.onBack,
             ),
             Expanded(
-              child: Material(
-                color: colors.surface,
-                elevation: 2,
-                shape: const StadiumBorder(),
-                child: TextField(
-                  onChanged: (String value) => _query.value = value.trim().toLowerCase(),
-                  textInputAction: TextInputAction.search,
-                  decoration: InputDecoration(
-                    hintText: lang.search_salon_title,
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    filled: false,
-                    contentPadding: const EdgeInsets.symmetric(vertical: kSpacing),
-                    prefixIcon: Center(
-                      widthFactor: 1,
-                      child: Image.asset(
-                        'assets/icons/Icon - Search.png',
-                        width: 20,
-                        excludeFromSemantics: true,
-                      ),
+              child: AppSearchField(
+                hintText: lang.search_salon_title,
+                onChanged: (String value) => _query.value = value.trim().toLowerCase(),
+                trailing: Obx(() {
+                  final bool selected = _discountedOnly.value;
+                  return IconButton(
+                    tooltip: lang.discounted_products_only,
+                    isSelected: selected,
+                    style: IconButton.styleFrom(
+                      backgroundColor: selected ? colors.primary : colors.surface,
                     ),
-                    suffixIcon: Obx(() {
-                      final bool selected = _discountedOnly.value;
-                      return IconButton(
-                        tooltip: lang.discounted_products_only,
-                        isSelected: selected,
-                        style: IconButton.styleFrom(
-                          backgroundColor: selected ? colors.primary : colors.surface,
-                        ),
-                        icon: Image.asset(
-                          'assets/icons/Icon - Filter.png',
-                          width: 22,
-                          color: selected ? colors.onPrimary : colors.onSurfaceVariant,
-                          excludeFromSemantics: true,
-                        ),
-                        onPressed: () => _discountedOnly.value = !selected,
-                      );
-                    }),
-                  ),
-                ),
+                    icon: Image.asset(
+                      'assets/icons/Icon - Filter.png',
+                      width: 22,
+                      color: selected ? colors.onPrimary : colors.onSurfaceVariant,
+                      excludeFromSemantics: true,
+                    ),
+                    onPressed: () => _discountedOnly.value = !selected,
+                  );
+                }),
               ),
             ),
           ],

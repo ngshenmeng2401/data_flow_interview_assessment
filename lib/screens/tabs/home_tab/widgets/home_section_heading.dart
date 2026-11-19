@@ -7,6 +7,7 @@ class HomeSectionHeading extends StatelessWidget {
   final String? subtitle;
   final bool showViewAll;
   final bool serviceStyle;
+  final VoidCallback? onViewAllPressed;
 
   const HomeSectionHeading({
     super.key,
@@ -14,6 +15,7 @@ class HomeSectionHeading extends StatelessWidget {
     this.subtitle,
     this.showViewAll = false,
     this.serviceStyle = false,
+    this.onViewAllPressed,
   });
 
   @override
@@ -57,11 +59,14 @@ class HomeSectionHeading extends StatelessWidget {
           ),
           if (showViewAll)
             Padding(
-              padding: const EdgeInsets.only(left: kSpacing),
+              padding: EdgeInsetsDirectional.only(
+                start: kSpacing,
+                end: serviceStyle ? kSpacing : 0,
+              ),
               // TODO dummy data / flow
               // Enable View All when its destination is defined.
               child: TextButton(
-                onPressed: null,
+                onPressed: onViewAllPressed,
                 style: TextButton.styleFrom(
                   minimumSize: const Size(48, 48),
                   padding: serviceStyle ? const EdgeInsets.symmetric(horizontal: kSpacing / 2, vertical: 2) : null,

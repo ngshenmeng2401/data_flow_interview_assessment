@@ -105,63 +105,59 @@ class HomeHeader extends StatelessWidget {
                 Expanded(child: Divider(color: detailColor, thickness: 0.5, height: 8)),
               ],
             ),
-            Material(
-              type: MaterialType.transparency,
-              child: InkWell(
-                onTap: () => _showAppointmentDetails(context),
-                child: Row(
-                  children: <Widget>[
-                    Flexible(
-                      flex: 5,
-                      child: _HomeAppointmentDetail(
-                        iconPath: 'assets/icons/Icon - Calender.png',
-                        text: DateFormat('dd MMM yyyy', locale).format(data.date),
-                        color: detailColor,
+            Row(
+              children: <Widget>[
+                Flexible(
+                  flex: 5,
+                  child: _HomeAppointmentDetail(
+                    iconPath: 'assets/icons/Icon - Calender.png',
+                    text: DateFormat('dd MMM yyyy', locale).format(data.date),
+                    color: detailColor,
+                  ),
+                ),
+                const SizedBox(width: kSpacing / 2),
+                Flexible(
+                  flex: 4,
+                  child: _HomeAppointmentDetail(
+                    iconPath: 'assets/icons/Icon - Clock.png',
+                    text: DateFormat.jm(locale).format(data.date),
+                    color: detailColor,
+                  ),
+                ),
+                const SizedBox(width: kSpacing / 2),
+                Expanded(
+                  flex: 7,
+                  child: _HomeAppointmentDetail(
+                    iconPath: 'assets/icons/Icon - Location.png',
+                    text: data.address,
+                    color: detailColor,
+                  ),
+                ),
+                // TODO dummy data / flow
+                // Enable appointment details when its destination is defined.
+                SizedBox(
+                  width: 48,
+                  height: 48,
+                  child: IconButton(
+                    tooltip: lang.next_appointment_title,
+                    onPressed: () => _showAppointmentDetails(context),
+                    icon: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.secondary,
+                        shape: BoxShape.circle,
                       ),
-                    ),
-                    const SizedBox(width: kSpacing / 2),
-                    Flexible(
-                      flex: 4,
-                      child: _HomeAppointmentDetail(
-                        iconPath: 'assets/icons/Icon - Clock.png',
-                        text: DateFormat.jm(locale).format(data.date),
-                        color: detailColor,
-                      ),
-                    ),
-                    const SizedBox(width: kSpacing / 2),
-                    Expanded(
-                      flex: 7,
-                      child: _HomeAppointmentDetail(
-                        iconPath: 'assets/icons/Icon - Location.png',
-                        text: data.address,
-                        color: detailColor,
-                      ),
-                    ),
-                    // TODO dummy data / flow
-                    // Enable appointment details when its destination is defined.
-                    SizedBox(
-                      width: 48,
-                      height: 48,
-                      child: Center(
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: theme.colorScheme.secondary,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4),
-                            child: Icon(
-                              Icons.chevron_right,
-                              size: 14,
-                              color: detailColor,
-                            ),
-                          ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Icon(
+                          Icons.chevron_right,
+                          size: 14,
+                          color: detailColor,
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
             _BalanceSummary(credit: credit, points: points, packages: packages),
           ],

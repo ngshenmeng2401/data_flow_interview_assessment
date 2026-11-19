@@ -3,6 +3,7 @@ import 'package:data_flow_interview_assessment/screens/home_screen.dart';
 import 'package:data_flow_interview_assessment/screens/tab_content_screen.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/discover_tab/discover_article.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_asset_image.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/new_services_screen.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/inbox_tab/inbox_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -10,6 +11,7 @@ import 'package:go_router/go_router.dart';
 class AppRouter {
   static const String home = '/';
   static const String discoverArticle = 'discoverArticle';
+  static const String newServices = 'newServices';
   static const String inboxNotice = 'inboxNotice';
 
   final GoRouter router = GoRouter(
@@ -20,6 +22,12 @@ class AppRouter {
         builder: (BuildContext context, GoRouterState state) =>
             const HomeScreen(),
         routes: <RouteBase>[
+          GoRoute(
+            path: 'new-services',
+            name: newServices,
+            builder: (BuildContext context, GoRouterState state) =>
+                const NewServicesScreen(),
+          ),
           GoRoute(
             path: 'discover/:id',
             name: discoverArticle,

@@ -70,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
           physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
             HomeTab(
+              onViewAllServicesPressed: () => context.pushNamed<void>(AppRouter.newServices),
               onShopPressed: () => _openMall(null),
               onCategoryPressed: _openMall,
               onDiscoverPressed: () => _selectTab(2),

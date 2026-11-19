@@ -21,6 +21,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class HomeTab extends StatefulWidget {
   final VoidCallback onShopPressed;
+  final VoidCallback onViewAllServicesPressed;
   final ValueChanged<PlantCategory> onCategoryPressed;
   final VoidCallback onDiscoverPressed;
   final ValueChanged<String> onArticlePressed;
@@ -28,6 +29,7 @@ class HomeTab extends StatefulWidget {
   const HomeTab({
     super.key,
     required this.onShopPressed,
+    required this.onViewAllServicesPressed,
     required this.onCategoryPressed,
     required this.onDiscoverPressed,
     required this.onArticlePressed,
@@ -140,7 +142,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  HomeSectionHeading(key: _newServicesKey, title: lang.new_services_title, subtitle: lang.recommended_for_you, showViewAll: true, serviceStyle: true),
+                  HomeSectionHeading(key: _newServicesKey, title: lang.new_services_title, subtitle: lang.recommended_for_you, showViewAll: true, serviceStyle: true, onViewAllPressed: widget.onViewAllServicesPressed),
                   Builder(
                     builder: (BuildContext context) {
                       final ServiceCardLayout layout = ServiceCardLayout.measure(context, HomeSampleData.services);

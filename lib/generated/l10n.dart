@@ -79,6 +79,31 @@ class Lang {
     );
   }
 
+  /// `Search services`
+  String get search_services {
+    return Intl.message(
+      'Search services',
+      name: 'search_services',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No services found.`
+  String get no_services_found {
+    return Intl.message(
+      'No services found.',
+      name: 'no_services_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Guest`
+  String get guest_title {
+    return Intl.message('Guest', name: 'guest_title', desc: '', args: []);
+  }
+
   /// `Discounted products only`
   String get discounted_products_only {
     return Intl.message(
