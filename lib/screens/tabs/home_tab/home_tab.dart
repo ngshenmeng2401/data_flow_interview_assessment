@@ -6,6 +6,7 @@ import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/bra
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/category_strip.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/discoveries_grid.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_asset_image.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_branch_map.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_header.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_section_heading.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/service_card.dart';
@@ -183,7 +184,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                 children: <Widget>[
                   // TODO need user revisit / complete
                   // Replace this placeholder with the real static map artwork.
-                  HomeAssetImage(path: 'assets/images/img_placeholder.png', aspectRatio: 2, semanticLabel: lang.location_title),
+                  const HomeBranchMap(branches: HomeSampleData.branches),
                   for (final HomeBranchData branch in HomeSampleData.branches) ...{BranchDetails(data: branch, onAddressTap: () => _openBranchMapsAsync(branch))},
                 ],
               ),
