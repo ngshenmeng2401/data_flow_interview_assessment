@@ -12,52 +12,28 @@ class _ServiceCard extends StatelessWidget {
     final String locale = Localizations.localeOf(context).toString();
     // TODO dummy data / flow
     // Enable service details when its destination is defined.
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        border: Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.3), width: _ServiceCardLayout.borderWidth),
-        borderRadius: BorderRadius.circular(4),
+    return _HomeContentCard(
+      imagePath: 'assets/images/Image.jpg',
+      imageSemanticLabel: data.title,
+      label: data.label,
+      body: data.title,
+      labelStyle: layout.labelStyle,
+      bodyStyle: layout.titleStyle,
+      contentPadding: _ServiceCardLayout.contentPadding,
+      labelBodySpacing: kSpacing / 2,
+      bodyMaxLines: 2,
+      border: Border.all(
+        color: theme.colorScheme.outline.withValues(alpha: 0.3),
+        width: _ServiceCardLayout.borderWidth,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
-            child: _HomeAssetImage(
-              path: 'assets/images/Image.jpg',
-              semanticLabel: data.title,
-            ),
-          ),
-          Padding(
-            padding: _ServiceCardLayout.contentPadding,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  data.label,
-                  style: layout.labelStyle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: kSpacing / 2),
-                Text(
-                  data.title,
-                  style: layout.titleStyle,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: kSpacing / 2),
-                Text(
-                  NumberFormat.currency(locale: locale, symbol: 'RM ', decimalDigits: 2)
-                      .format(data.price),
-                  style: layout.priceStyle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            ),
-          ),
-        ],
+      imageBorderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
+      clipBehavior: Clip.none,
+      footerSpacing: kSpacing / 2,
+      footer: Text(
+        NumberFormat.currency(locale: locale, symbol: 'RM ', decimalDigits: 2).format(data.price),
+        style: layout.priceStyle,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

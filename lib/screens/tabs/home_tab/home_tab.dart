@@ -13,6 +13,7 @@ part 'widgets/home_header.dart';
 part 'widgets/category_strip.dart';
 part 'widgets/home_section_heading.dart';
 part 'widgets/service_card.dart';
+part 'widgets/home_content_card.dart';
 part 'widgets/shop_plants_strip.dart';
 part 'widgets/discoveries_grid.dart';
 part 'widgets/discovery_card.dart';
