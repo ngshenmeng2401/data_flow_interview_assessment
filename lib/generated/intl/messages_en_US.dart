@@ -24,12 +24,45 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "account_title": MessageLookupByLibrary.simpleMessage("Account"),
     "app_title": MessageLookupByLibrary.simpleMessage("Data Flows"),
+    "credit_title": MessageLookupByLibrary.simpleMessage("Credit"),
     "discover_title": MessageLookupByLibrary.simpleMessage("Discover"),
     "feature_not_implemented": MessageLookupByLibrary.simpleMessage(
       "This feature is not implemented yet.",
     ),
     "home_title": MessageLookupByLibrary.simpleMessage("Home"),
     "inbox_title": MessageLookupByLibrary.simpleMessage("Inbox"),
+    "indoor_plants_title": MessageLookupByLibrary.simpleMessage(
+      "Indoor Plants",
+    ),
+    "location_title": MessageLookupByLibrary.simpleMessage("Location"),
+    "logo_title": MessageLookupByLibrary.simpleMessage("Logo"),
     "mall_title": MessageLookupByLibrary.simpleMessage("Mall"),
+    "new_services_title": MessageLookupByLibrary.simpleMessage("New Services"),
+    "next_appointment_title": MessageLookupByLibrary.simpleMessage(
+      "Next Appointment",
+    ),
+    "opening_hours_title": MessageLookupByLibrary.simpleMessage(
+      "Opening Hours",
+    ),
+    "outdoor_plants_title": MessageLookupByLibrary.simpleMessage(
+      "Outdoor Plants",
+    ),
+    "package_title": MessageLookupByLibrary.simpleMessage("Package"),
+    "plant_care_title": MessageLookupByLibrary.simpleMessage("Plant Care"),
+    "points_title": MessageLookupByLibrary.simpleMessage("Points"),
+    "posts_title": MessageLookupByLibrary.simpleMessage("POSTS"),
+    "pots_title": MessageLookupByLibrary.simpleMessage("Pots"),
+    "recommended_for_you": MessageLookupByLibrary.simpleMessage(
+      "Recommended for you",
+    ),
+    "recommended_title": MessageLookupByLibrary.simpleMessage("Recommended"),
+    "services_title": MessageLookupByLibrary.simpleMessage("SERVICES"),
+    "shop_plants_title": MessageLookupByLibrary.simpleMessage("Shop Plants"),
+    "shop_title": MessageLookupByLibrary.simpleMessage("SHOP"),
+    "succulents_title": MessageLookupByLibrary.simpleMessage("Succulents"),
+    "trending_discoveries_title": MessageLookupByLibrary.simpleMessage(
+      "Trending Discoveries",
+    ),
+    "view_all_title": MessageLookupByLibrary.simpleMessage("View All"),
   };
 }

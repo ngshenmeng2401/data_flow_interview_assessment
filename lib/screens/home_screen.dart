@@ -1,6 +1,6 @@
 import 'package:data_flow_interview_assessment/constants/dimensions.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
-import 'package:data_flow_interview_assessment/screens/tabs/home_tab.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

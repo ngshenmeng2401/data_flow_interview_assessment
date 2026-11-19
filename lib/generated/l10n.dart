@@ -93,6 +93,166 @@ class Lang {
       args: [],
     );
   }
+
+  /// `Logo`
+  String get logo_title {
+    return Intl.message('Logo', name: 'logo_title', desc: '', args: []);
+  }
+
+  /// `Next Appointment`
+  String get next_appointment_title {
+    return Intl.message(
+      'Next Appointment',
+      name: 'next_appointment_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Credit`
+  String get credit_title {
+    return Intl.message('Credit', name: 'credit_title', desc: '', args: []);
+  }
+
+  /// `Points`
+  String get points_title {
+    return Intl.message('Points', name: 'points_title', desc: '', args: []);
+  }
+
+  /// `Package`
+  String get package_title {
+    return Intl.message('Package', name: 'package_title', desc: '', args: []);
+  }
+
+  /// `SHOP`
+  String get shop_title {
+    return Intl.message('SHOP', name: 'shop_title', desc: '', args: []);
+  }
+
+  /// `SERVICES`
+  String get services_title {
+    return Intl.message('SERVICES', name: 'services_title', desc: '', args: []);
+  }
+
+  /// `POSTS`
+  String get posts_title {
+    return Intl.message('POSTS', name: 'posts_title', desc: '', args: []);
+  }
+
+  /// `Indoor Plants`
+  String get indoor_plants_title {
+    return Intl.message(
+      'Indoor Plants',
+      name: 'indoor_plants_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outdoor Plants`
+  String get outdoor_plants_title {
+    return Intl.message(
+      'Outdoor Plants',
+      name: 'outdoor_plants_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Succulents`
+  String get succulents_title {
+    return Intl.message(
+      'Succulents',
+      name: 'succulents_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pots`
+  String get pots_title {
+    return Intl.message('Pots', name: 'pots_title', desc: '', args: []);
+  }
+
+  /// `Plant Care`
+  String get plant_care_title {
+    return Intl.message(
+      'Plant Care',
+      name: 'plant_care_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Services`
+  String get new_services_title {
+    return Intl.message(
+      'New Services',
+      name: 'new_services_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recommended for you`
+  String get recommended_for_you {
+    return Intl.message(
+      'Recommended for you',
+      name: 'recommended_for_you',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View All`
+  String get view_all_title {
+    return Intl.message('View All', name: 'view_all_title', desc: '', args: []);
+  }
+
+  /// `Recommended`
+  String get recommended_title {
+    return Intl.message(
+      'Recommended',
+      name: 'recommended_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shop Plants`
+  String get shop_plants_title {
+    return Intl.message(
+      'Shop Plants',
+      name: 'shop_plants_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trending Discoveries`
+  String get trending_discoveries_title {
+    return Intl.message(
+      'Trending Discoveries',
+      name: 'trending_discoveries_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Location`
+  String get location_title {
+    return Intl.message('Location', name: 'location_title', desc: '', args: []);
+  }
+
+  /// `Opening Hours`
+  String get opening_hours_title {
+    return Intl.message(
+      'Opening Hours',
+      name: 'opening_hours_title',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Lang> {
