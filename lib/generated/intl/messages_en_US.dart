@@ -25,6 +25,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "account_title": MessageLookupByLibrary.simpleMessage("Account"),
     "app_title": MessageLookupByLibrary.simpleMessage("Data Flows"),
     "credit_title": MessageLookupByLibrary.simpleMessage("Credit"),
+    "discounted_products_only": MessageLookupByLibrary.simpleMessage(
+      "Discounted products only",
+    ),
     "discover_title": MessageLookupByLibrary.simpleMessage("Discover"),
     "feature_not_implemented": MessageLookupByLibrary.simpleMessage(
       "This feature is not implemented yet.",
@@ -44,6 +47,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "next_appointment_title": MessageLookupByLibrary.simpleMessage(
       "Next Appointment",
     ),
+    "no_products_found": MessageLookupByLibrary.simpleMessage(
+      "No products found.",
+    ),
     "opening_hours_title": MessageLookupByLibrary.simpleMessage(
       "Opening Hours",
     ),
@@ -59,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Recommended based on your preference",
     ),
     "recommended_title": MessageLookupByLibrary.simpleMessage("Recommended"),
+    "search_salon_title": MessageLookupByLibrary.simpleMessage("Search Salon"),
     "services_title": MessageLookupByLibrary.simpleMessage("SERVICES"),
     "shop_plants_title": MessageLookupByLibrary.simpleMessage("Shop Plants"),
     "shop_title": MessageLookupByLibrary.simpleMessage("SHOP"),

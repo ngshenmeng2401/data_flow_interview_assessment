@@ -69,6 +69,36 @@ class Lang {
     return Intl.message('Mall', name: 'mall_title', desc: '', args: []);
   }
 
+  /// `Search Salon`
+  String get search_salon_title {
+    return Intl.message(
+      'Search Salon',
+      name: 'search_salon_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discounted products only`
+  String get discounted_products_only {
+    return Intl.message(
+      'Discounted products only',
+      name: 'discounted_products_only',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No products found.`
+  String get no_products_found {
+    return Intl.message(
+      'No products found.',
+      name: 'no_products_found',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Discover`
   String get discover_title {
     return Intl.message('Discover', name: 'discover_title', desc: '', args: []);

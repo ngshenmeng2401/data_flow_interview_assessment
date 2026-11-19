@@ -1,6 +1,7 @@
 import 'package:data_flow_interview_assessment/constants/dimensions.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/mall_tab/mall_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
             const HomeTab(),
-            _PlaceholderTab(title: lang.mall_title),
+            MallTab(onBack: () => _selectTab(0)),
             _PlaceholderTab(title: lang.discover_title),
             _PlaceholderTab(title: lang.inbox_title),
             _PlaceholderTab(title: lang.account_title),
