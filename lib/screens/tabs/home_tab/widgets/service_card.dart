@@ -1,10 +1,15 @@
-part of '../home_tab.dart';
+import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab_data.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_content_card.dart';
+import 'package:data_flow_interview_assessment/utils/app_theme_config.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class _ServiceCard extends StatelessWidget {
-  final _HomeServiceData data;
-  final _ServiceCardLayout layout;
+class ServiceCard extends StatelessWidget {
+  final HomeServiceData data;
+  final ServiceCardLayout layout;
 
-  const _ServiceCard({required this.data, required this.layout});
+  const ServiceCard({required this.data, required this.layout});
 
   @override
   Widget build(BuildContext context) {
@@ -12,19 +17,19 @@ class _ServiceCard extends StatelessWidget {
     final String locale = Localizations.localeOf(context).toString();
     // TODO dummy data / flow
     // Enable service details when its destination is defined.
-    return _HomeContentCard(
+    return HomeContentCard(
       imagePath: 'assets/images/Image.jpg',
       imageSemanticLabel: data.title,
       label: data.label,
       body: data.title,
       labelStyle: layout.labelStyle,
       bodyStyle: layout.titleStyle,
-      contentPadding: _ServiceCardLayout.contentPadding,
+      contentPadding: ServiceCardLayout.contentPadding,
       labelBodySpacing: kSpacing / 2,
       bodyMaxLines: 2,
       border: Border.all(
         color: theme.colorScheme.outline.withValues(alpha: 0.3),
-        width: _ServiceCardLayout.borderWidth,
+        width: ServiceCardLayout.borderWidth,
       ),
       imageBorderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
       clipBehavior: Clip.none,
@@ -39,7 +44,7 @@ class _ServiceCard extends StatelessWidget {
   }
 }
 
-class _ServiceCardLayout {
+class ServiceCardLayout {
   static const double width = 160;
   static const double borderWidth = 1;
   static const EdgeInsets contentPadding = EdgeInsets.fromLTRB(10, 12, 10, 18);
@@ -49,14 +54,14 @@ class _ServiceCardLayout {
   final TextStyle priceStyle;
   final double height;
 
-  const _ServiceCardLayout({
+  const ServiceCardLayout({
     required this.labelStyle,
     required this.titleStyle,
     required this.priceStyle,
     required this.height,
   });
 
-  factory _ServiceCardLayout.measure(BuildContext context, List<_HomeServiceData> items) {
+  factory ServiceCardLayout.measure(BuildContext context, List<HomeServiceData> items) {
     final ThemeData theme = Theme.of(context);
     final TextStyle labelStyle = theme.textTheme.labelSmall!.copyWith(
       color: theme.colorScheme.onSurfaceVariant,
@@ -75,7 +80,7 @@ class _ServiceCardLayout {
     final Locale locale = Localizations.localeOf(context);
     final NumberFormat priceFormat = NumberFormat.currency(locale: locale.toString(), symbol: 'RM ', decimalDigits: 2);
     double maximumHeight = 0;
-    for (final _HomeServiceData item in items) {
+    for (final HomeServiceData item in items) {
       final double textHeight = _measureText(context, item.label, labelStyle, 1) +
           _measureText(context, '${item.title}\n${item.title}', titleStyle, 2) +
           _measureText(context, priceFormat.format(item.price), priceStyle, 1);
@@ -85,7 +90,7 @@ class _ServiceCardLayout {
         maximumHeight = cardHeight;
       }
     }
-    return _ServiceCardLayout(
+    return ServiceCardLayout(
       labelStyle: labelStyle,
       titleStyle: titleStyle,
       priceStyle: priceStyle,

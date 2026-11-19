@@ -1,12 +1,16 @@
-part of '../home_tab.dart';
+import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/generated/l10n.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab_data.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class _HomeHeader extends StatelessWidget {
-  final _HomeAppointmentData data;
+class HomeHeader extends StatelessWidget {
+  final HomeAppointmentData data;
   final String credit;
   final String points;
   final String packages;
 
-  const _HomeHeader({
+  const HomeHeader({
     required this.data,
     required this.credit,
     required this.points,

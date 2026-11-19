@@ -1,9 +1,12 @@
-part of '../home_tab.dart';
+import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab_data.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/discovery_card.dart';
+import 'package:flutter/material.dart';
 
-class _DiscoveriesGrid extends StatelessWidget {
-  final List<_HomeDiscoveryData> items;
+class DiscoveriesGrid extends StatelessWidget {
+  final List<HomeDiscoveryData> items;
 
-  const _DiscoveriesGrid({required this.items});
+  const DiscoveriesGrid({required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class _DiscoveriesGrid extends StatelessWidget {
               children: <Widget>[
                 for (int index = column; index < items.length; index += 2) ...<Widget>[
                   if (index > column) const SizedBox(height: kPadding / 2),
-                  _DiscoveryCard(data: items[index]),
+                  DiscoveryCard(data: items[index]),
                 ],
               ],
             ),

@@ -1,15 +1,18 @@
-part of '../home_tab.dart';
+import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/generated/l10n.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab_data.dart';
+import 'package:flutter/material.dart';
 
-class _ShopPlantsStrip extends StatefulWidget {
-  final List<_HomeCategoryData> categories;
+class ShopPlantsStrip extends StatefulWidget {
+  final List<HomeCategoryData> categories;
 
-  const _ShopPlantsStrip({required this.categories});
+  const ShopPlantsStrip({required this.categories});
 
   @override
-  State<_ShopPlantsStrip> createState() => _ShopPlantsStripState();
+  State<ShopPlantsStrip> createState() => _ShopPlantsStripState();
 }
 
-class _ShopPlantsStripState extends State<_ShopPlantsStrip> {
+class _ShopPlantsStripState extends State<ShopPlantsStrip> {
   final ScrollController _scrollController = ScrollController();
   final ValueNotifier<(bool, bool)> _fades = ValueNotifier<(bool, bool)>((false, false));
   bool _boundaryUpdateScheduled = false;
@@ -22,7 +25,7 @@ class _ShopPlantsStripState extends State<_ShopPlantsStrip> {
   }
 
   @override
-  void didUpdateWidget(covariant _ShopPlantsStrip oldWidget) {
+  void didUpdateWidget(covariant ShopPlantsStrip oldWidget) {
     super.didUpdateWidget(oldWidget);
     _scheduleBoundaryUpdate();
   }
@@ -102,7 +105,7 @@ class _ShopPlantsStripState extends State<_ShopPlantsStrip> {
                             itemCount: widget.categories.length,
                             separatorBuilder: (BuildContext context, int index) => const SizedBox(width: kSpacing),
                             itemBuilder: (BuildContext context, int index) {
-                              final _HomeCategoryData category = widget.categories[index];
+                              final HomeCategoryData category = widget.categories[index];
                               return Semantics(
                                 label: category.label,
                                 selected: index == 0,

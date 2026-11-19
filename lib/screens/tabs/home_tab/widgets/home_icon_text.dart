@@ -1,13 +1,15 @@
-part of '../home_tab.dart';
+import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_icon.dart';
+import 'package:flutter/material.dart';
 
-class _HomeIconText extends StatelessWidget {
+class HomeIconText extends StatelessWidget {
   final String iconPath;
   final String text;
   final Color? color;
   final int maxLines;
   final bool expandText;
 
-  const _HomeIconText({
+  const HomeIconText({
     required this.iconPath,
     required this.text,
     this.color,
@@ -27,7 +29,7 @@ class _HomeIconText extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _HomeIcon(path: iconPath, color: color),
+        HomeIcon(path: iconPath, color: color),
         const SizedBox(width: kSpacing / 2),
         _label(label),
       ],

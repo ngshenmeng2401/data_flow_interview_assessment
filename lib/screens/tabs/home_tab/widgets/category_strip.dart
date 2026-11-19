@@ -1,9 +1,11 @@
-part of '../home_tab.dart';
+import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab_data.dart';
+import 'package:flutter/material.dart';
 
-class _CategoryStrip extends StatelessWidget {
-  final List<_HomeCategoryData> categories;
+class CategoryStrip extends StatelessWidget {
+  final List<HomeCategoryData> categories;
 
-  const _CategoryStrip({required this.categories});
+  const CategoryStrip({required this.categories});
 
   @override
   Widget build(BuildContext context) {

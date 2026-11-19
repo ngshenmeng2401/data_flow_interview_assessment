@@ -1,6 +1,7 @@
-part of '../home_tab.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_asset_image.dart';
+import 'package:flutter/material.dart';
 
-class _HomeContentCard extends StatelessWidget {
+class HomeContentCard extends StatelessWidget {
   final String imagePath;
   final String imageSemanticLabel;
   final String label;
@@ -17,7 +18,7 @@ class _HomeContentCard extends StatelessWidget {
   final BorderRadius imageBorderRadius;
   final Clip clipBehavior;
 
-  const _HomeContentCard({
+  const HomeContentCard({
     required this.imagePath,
     required this.imageSemanticLabel,
     required this.label,
@@ -49,7 +50,7 @@ class _HomeContentCard extends StatelessWidget {
         children: <Widget>[
           ClipRRect(
             borderRadius: imageBorderRadius,
-            child: _HomeAssetImage(
+            child: HomeAssetImage(
               path: imagePath,
               aspectRatio: 1,
               fit: BoxFit.contain,

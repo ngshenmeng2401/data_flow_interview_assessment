@@ -1,12 +1,12 @@
-part of '../home_tab.dart';
+import 'package:flutter/material.dart';
 
-class _HomeAssetImage extends StatelessWidget {
+class HomeAssetImage extends StatelessWidget {
   final String path;
   final double aspectRatio;
   final BoxFit fit;
   final String? semanticLabel;
 
-  const _HomeAssetImage({
+  const HomeAssetImage({
     required this.path,
     this.aspectRatio = 1,
     this.fit = BoxFit.contain,

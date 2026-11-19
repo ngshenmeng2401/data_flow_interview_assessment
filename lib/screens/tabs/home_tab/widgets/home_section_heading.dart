@@ -1,12 +1,14 @@
-part of '../home_tab.dart';
+import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/generated/l10n.dart';
+import 'package:flutter/material.dart';
 
-class _HomeSectionHeading extends StatelessWidget {
+class HomeSectionHeading extends StatelessWidget {
   final String title;
   final String? subtitle;
   final bool showViewAll;
   final bool serviceStyle;
 
-  const _HomeSectionHeading({
+  const HomeSectionHeading({
     required this.title,
     this.subtitle,
     this.showViewAll = false,

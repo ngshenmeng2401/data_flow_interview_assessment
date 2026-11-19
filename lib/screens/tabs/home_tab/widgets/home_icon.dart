@@ -1,10 +1,10 @@
-part of '../home_tab.dart';
+import 'package:flutter/material.dart';
 
-class _HomeIcon extends StatelessWidget {
+class HomeIcon extends StatelessWidget {
   final String path;
   final Color? color;
 
-  const _HomeIcon({required this.path, this.color});
+  const HomeIcon({required this.path, this.color});
 
   @override
   Widget build(BuildContext context) {

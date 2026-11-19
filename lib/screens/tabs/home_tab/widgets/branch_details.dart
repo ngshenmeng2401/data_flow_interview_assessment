@@ -1,10 +1,13 @@
-part of '../home_tab.dart';
+import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab_data.dart';
+import 'package:data_flow_interview_assessment/utils/app_theme_config.dart';
+import 'package:flutter/material.dart';
 
-class _BranchDetails extends StatelessWidget {
-  final _HomeBranchData data;
+class BranchDetails extends StatelessWidget {
+  final HomeBranchData data;
   final VoidCallback onAddressTap;
 
-  const _BranchDetails({required this.data, required this.onAddressTap});
+  const BranchDetails({required this.data, required this.onAddressTap});
 
   @override
   Widget build(BuildContext context) {

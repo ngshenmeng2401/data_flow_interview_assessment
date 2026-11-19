@@ -1,26 +1,20 @@
 import 'dart:developer' as developer;
-
 import 'package:data_flow_interview_assessment/constants/dimensions.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab_data.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/branch_details.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/category_strip.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/discoveries_grid.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_asset_image.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_header.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/home_section_heading.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/service_card.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/shop_plants_strip.dart';
 import 'package:data_flow_interview_assessment/utils/app_theme_config.dart';
 import 'package:data_flow_interview_assessment/widgets/app_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-part 'home_tab_data.dart';
-part 'widgets/home_header.dart';
-part 'widgets/category_strip.dart';
-part 'widgets/home_section_heading.dart';
-part 'widgets/service_card.dart';
-part 'widgets/home_content_card.dart';
-part 'widgets/shop_plants_strip.dart';
-part 'widgets/discoveries_grid.dart';
-part 'widgets/discovery_card.dart';
-part 'widgets/branch_details.dart';
-part 'widgets/home_icon_text.dart';
-part 'widgets/home_icon.dart';
-part 'widgets/home_asset_image.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -33,7 +27,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
   @override
   bool get wantKeepAlive => true;
 
-  Future<void> _openBranchMapsAsync(_HomeBranchData branch) async {
+  Future<void> _openBranchMapsAsync(HomeBranchData branch) async {
     try {
       final Uri uri = Uri.https('www.google.com', '/maps/search/', <String, String>{
         'api': '1',
@@ -60,7 +54,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
     final Lang lang = Lang.of(context);
     final ThemeData theme = Theme.of(context);
     final String locale = Localizations.localeOf(context).toString();
-    final List<_HomeCategoryData> categories = <_HomeCategoryData>[_HomeCategoryData(label: lang.indoor_plants_title, assetIndex: 1), _HomeCategoryData(label: lang.outdoor_plants_title, assetIndex: 2), _HomeCategoryData(label: lang.succulents_title, assetIndex: 3), _HomeCategoryData(label: lang.pots_title, assetIndex: 4), _HomeCategoryData(label: lang.plant_care_title, assetIndex: 5)];
+    final List<HomeCategoryData> categories = <HomeCategoryData>[HomeCategoryData(label: lang.indoor_plants_title, assetIndex: 1), HomeCategoryData(label: lang.outdoor_plants_title, assetIndex: 2), HomeCategoryData(label: lang.succulents_title, assetIndex: 3), HomeCategoryData(label: lang.pots_title, assetIndex: 4), HomeCategoryData(label: lang.plant_care_title, assetIndex: 5)];
 
     return ColoredBox(
       color: theme.colorScheme.surface,
@@ -70,13 +64,13 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _HomeHeader(
-              data: _HomeSampleData.appointment,
-              credit: NumberFormat.currency(locale: locale, symbol: 'RM', decimalDigits: 2).format(_HomeSampleData.credit),
-              points: NumberFormat.decimalPattern(locale).format(_HomeSampleData.points),
-              packages: NumberFormat.decimalPattern(locale).format(_HomeSampleData.packages),
+            HomeHeader(
+              data: HomeSampleData.appointment,
+              credit: NumberFormat.currency(locale: locale, symbol: 'RM', decimalDigits: 2).format(HomeSampleData.credit),
+              points: NumberFormat.decimalPattern(locale).format(HomeSampleData.points),
+              packages: NumberFormat.decimalPattern(locale).format(HomeSampleData.packages),
             ),
-            const _HomeAssetImage(
+            const HomeAssetImage(
               path: 'assets/images/Home Banner.jpg',
               // The supplied banner is 828 by 500; preserve its full artwork.
               aspectRatio: 828 / 500,
@@ -107,17 +101,17 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                 },
               ),
             ),
-            _CategoryStrip(categories: categories),
+            CategoryStrip(categories: categories),
             SizedBox(height: kPadding),
             ColoredBox(
               color: theme.scaffoldBackgroundColor,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  _HomeSectionHeading(title: lang.new_services_title, subtitle: lang.recommended_for_you, showViewAll: true, serviceStyle: true),
+                  HomeSectionHeading(title: lang.new_services_title, subtitle: lang.recommended_for_you, showViewAll: true, serviceStyle: true),
                   Builder(
                     builder: (BuildContext context) {
-                      final _ServiceCardLayout layout = _ServiceCardLayout.measure(context, _HomeSampleData.services);
+                      final ServiceCardLayout layout = ServiceCardLayout.measure(context, HomeSampleData.services);
                       return SizedBox(
                         height: layout.height,
                         child: ListView.separated(
@@ -126,12 +120,12 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                           scrollDirection: Axis.horizontal,
                           physics: const BouncingScrollPhysics(),
                           padding: const EdgeInsets.symmetric(horizontal: kPadding * 1.5),
-                          itemCount: _HomeSampleData.services.length,
+                          itemCount: HomeSampleData.services.length,
                           separatorBuilder: (BuildContext context, int index) => const SizedBox(width: kSpacing / 2),
                           itemBuilder: (BuildContext context, int index) {
                             return SizedBox(
-                              width: _ServiceCardLayout.width,
-                              child: _ServiceCard(data: _HomeSampleData.services[index], layout: layout),
+                              width: ServiceCardLayout.width,
+                              child: ServiceCard(data: HomeSampleData.services[index], layout: layout),
                             );
                           },
                         ),
@@ -140,7 +134,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: kSpacing * 2),
-                    child: _ShopPlantsStrip(categories: categories),
+                    child: ShopPlantsStrip(categories: categories),
                   ),
                 ],
               ),
@@ -176,12 +170,12 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                   ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(kPadding, 0, kPadding, kPadding),
-                    child: _DiscoveriesGrid(items: _HomeSampleData.discoveries),
+                    child: DiscoveriesGrid(items: HomeSampleData.discoveries),
                   ),
                 ],
               ),
             ),
-            _HomeSectionHeading(title: lang.location_title),
+            HomeSectionHeading(title: lang.location_title),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: kPadding),
               child: Column(
@@ -189,8 +183,8 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                 children: <Widget>[
                   // TODO need user revisit / complete
                   // Replace this placeholder with the real static map artwork.
-                  _HomeAssetImage(path: 'assets/images/img_placeholder.png', aspectRatio: 2, semanticLabel: lang.location_title),
-                  for (final _HomeBranchData branch in _HomeSampleData.branches) ...{_BranchDetails(data: branch, onAddressTap: () => _openBranchMapsAsync(branch))},
+                  HomeAssetImage(path: 'assets/images/img_placeholder.png', aspectRatio: 2, semanticLabel: lang.location_title),
+                  for (final HomeBranchData branch in HomeSampleData.branches) ...{BranchDetails(data: branch, onAddressTap: () => _openBranchMapsAsync(branch))},
                 ],
               ),
             ),
