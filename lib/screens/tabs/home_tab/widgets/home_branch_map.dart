@@ -97,7 +97,7 @@ class _HomeBranchMapState extends State<HomeBranchMap> {
                     errorTileCallback: _onTileError
                 ),
                 MarkerLayer(markers: markers),
-                SimpleAttributionWidget(source: const Text('OpenStreetMap contributors'), onTap: _openAttributionAsync),
+                // SimpleAttributionWidget(source: const Text('OpenStreetMap contributors'), onTap: _openAttributionAsync),
               ],
             );
           },

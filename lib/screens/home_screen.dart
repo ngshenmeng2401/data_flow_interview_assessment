@@ -1,9 +1,13 @@
-import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/app_router.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/account_tab/account_tab.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/discover_tab/discover_tab.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/inbox_tab/inbox_tab.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/mall_tab/mall_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,6 +35,20 @@ class _HomeScreenState extends State<HomeScreen> {
     _selectedIndex.value = index;
   }
 
+  void _openArticle(String id) {
+    context.pushNamed<void>(
+      AppRouter.discoverArticle,
+      pathParameters: <String, String>{'id': id},
+    );
+  }
+
+  void _openNotice(String id) {
+    context.pushNamed<void>(
+      AppRouter.inboxNotice,
+      pathParameters: <String, String>{'id': id},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final Lang lang = Lang.of(context);
@@ -41,11 +59,14 @@ class _HomeScreenState extends State<HomeScreen> {
           controller: _pageController,
           physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
-            const HomeTab(),
+            HomeTab(
+              onDiscoverPressed: () => _selectTab(2),
+              onArticlePressed: _openArticle,
+            ),
             MallTab(onBack: () => _selectTab(0)),
-            _PlaceholderTab(title: lang.discover_title),
-            _PlaceholderTab(title: lang.inbox_title),
-            _PlaceholderTab(title: lang.account_title),
+            DiscoverTab(onArticlePressed: _openArticle),
+            InboxTab(onNoticePressed: _openNotice),
+            const AccountTab(),
           ],
         ),
       ),
@@ -100,38 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
         color: theme.selectedItemColor,
         fit: BoxFit.contain,
         excludeFromSemantics: true,
-      ),
-    );
-  }
-}
-
-class _PlaceholderTab extends StatelessWidget {
-  final String title;
-
-  const _PlaceholderTab({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const ClampingScrollPhysics(),
-      padding: const EdgeInsets.all(kPadding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleLarge,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: kSpacing),
-          Text(
-            Lang.of(context).feature_not_implemented,
-            style: Theme.of(context).textTheme.bodyMedium,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
       ),
     );
   }

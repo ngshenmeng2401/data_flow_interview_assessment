@@ -15,12 +15,6 @@ class HomeSampleData {
     HomeServiceData(label: 'Lorem Ipsum', title: 'Lorem ipsum dolor sit amet consectetur', price: 10),
     HomeServiceData(label: 'Lorem Ipsum', title: 'Lorem ipsum dolor sit amet consectetur', price: 10),
   ];
-  static const List<HomeDiscoveryData> discoveries = <HomeDiscoveryData>[
-    HomeDiscoveryData(label: 'Lorem Ipsum', body: 'Lorem ipsum dolor sit amet consectetur adipiscing elit'),
-    HomeDiscoveryData(label: 'Lorem Ipsum', body: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Lorem ipsum dolor sit amet'),
-    HomeDiscoveryData(label: 'Lorem Ipsum', body: 'Lorem ipsum dolor sit amet consectetur adipiscing elit'),
-    HomeDiscoveryData(label: 'Lorem Ipsum', body: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Lorem ipsum dolor sit amet'),
-  ];
   static const List<HomeBranchData> branches = <HomeBranchData>[
     HomeBranchData(
       name: 'Sunway Pyramid',
@@ -59,13 +53,6 @@ class HomeServiceData {
   final double price;
 
   const HomeServiceData({required this.label, required this.title, required this.price});
-}
-
-class HomeDiscoveryData {
-  final String label;
-  final String body;
-
-  const HomeDiscoveryData({required this.label, required this.body});
 }
 
 class HomeBranchData {

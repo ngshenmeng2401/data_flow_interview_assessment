@@ -1,6 +1,7 @@
 import 'dart:developer' as developer;
 import 'package:data_flow_interview_assessment/constants/dimensions.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
+import 'package:data_flow_interview_assessment/screens/tabs/discover_tab/discover_article.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab_data.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/branch_details.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/category_strip.dart';
@@ -18,7 +19,14 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeTab extends StatefulWidget {
-  const HomeTab({super.key});
+  final VoidCallback onDiscoverPressed;
+  final ValueChanged<String> onArticlePressed;
+
+  const HomeTab({
+    super.key,
+    required this.onDiscoverPressed,
+    required this.onArticlePressed,
+  });
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -169,9 +177,26 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                       );
                     },
                   ),
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(kPadding, 0, kPadding, kPadding),
-                    child: DiscoveriesGrid(items: HomeSampleData.discoveries),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: kPadding),
+                    child: Align(
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: TextButton(
+                        onPressed: widget.onDiscoverPressed,
+                        style: TextButton.styleFrom(
+                          foregroundColor: theme.colorScheme.onPrimary,
+                          minimumSize: const Size(48, 48),
+                        ),
+                        child: Text(lang.view_all_title, maxLines: 1, overflow: TextOverflow.ellipsis),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(kPadding, 0, kPadding, kPadding),
+                    child: DiscoveriesGrid(
+                      items: DiscoverArticle.collection(lang),
+                      onArticlePressed: widget.onArticlePressed,
+                    ),
                   ),
                 ],
               ),
