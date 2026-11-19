@@ -1,9 +1,12 @@
+import 'dart:developer' as developer;
+
 import 'package:data_flow_interview_assessment/constants/dimensions.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
 import 'package:data_flow_interview_assessment/utils/app_theme_config.dart';
 import 'package:data_flow_interview_assessment/widgets/app_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'home_tab_data.dart';
 part 'widgets/home_header.dart';
@@ -28,6 +31,27 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<HomeTab> {
   @override
   bool get wantKeepAlive => true;
+
+  Future<void> _openBranchMapsAsync(_HomeBranchData branch) async {
+    try {
+      final Uri uri = Uri.https('www.google.com', '/maps/search/', <String, String>{
+        'api': '1',
+        'query': '${branch.name}, Malaysia',
+      });
+      final bool launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+      if (!launched) {
+        throw StateError('External maps launch failed');
+      }
+    } catch (error, stackTrace) {
+      developer.log('Unable to open branch maps', name: 'HomeTab', error: error, stackTrace: stackTrace);
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(Lang.of(context).maps_open_failed)),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +189,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                   // TODO need user revisit / complete
                   // Replace this placeholder with the real static map artwork.
                   _HomeAssetImage(path: 'assets/images/img_placeholder.png', aspectRatio: 2, semanticLabel: lang.location_title),
-                  for (final _HomeBranchData branch in _HomeSampleData.branches) ...{_BranchDetails(data: branch)},
+                  for (final _HomeBranchData branch in _HomeSampleData.branches) ...{_BranchDetails(data: branch, onAddressTap: () => _openBranchMapsAsync(branch))},
                 ],
               ),
             ),

@@ -25,14 +25,14 @@ class _HomeSampleData {
   ];
   static const List<_HomeBranchData> branches = <_HomeBranchData>[
     _HomeBranchData(
-      name: 'Sample Garden Studio',
-      address: '12, Jalan Kebun, 50000 Kuala Lumpur, Malaysia',
-      openingHours: 'Monday - Sunday, 10:00 AM - 7:00 PM',
+      name: 'Sunway Pyramid',
+      address: '10 Floor, Lorem Ipsum Mall,\nJalan ss23 Lorem, Selangor, Malaysia',
+      openingHours: '10am - 10pm',
     ),
     _HomeBranchData(
-      name: 'Sample Plant Corner',
-      address: '8, Jalan Taman, 46000 Petaling Jaya, Selangor, Malaysia',
-      openingHours: 'Tuesday - Sunday, 10:00 AM - 6:00 PM',
+      name: 'The Gardens Mall',
+      address: '10 Floor, Lorem Ipsum Mall,\nJalan ss23 Lorem, Selangor, Malaysia',
+      openingHours: '10am - 10pm',
     ),
   ];
 }

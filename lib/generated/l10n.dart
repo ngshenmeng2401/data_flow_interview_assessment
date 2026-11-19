@@ -253,6 +253,16 @@ class Lang {
       args: [],
     );
   }
+
+  /// `Unable to open maps. Please try again.`
+  String get maps_open_failed {
+    return Intl.message(
+      'Unable to open maps. Please try again.',
+      name: 'maps_open_failed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Lang> {

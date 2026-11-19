@@ -27,5 +27,6 @@
   "shop_plants_title": "Shop Plants",
   "trending_discoveries_title": "Trending Discoveries",
   "location_title": "Location",
-  "opening_hours_title": "Opening Hours"
+  "opening_hours_title": "Opening Hours",
+  "maps_open_failed": "Unable to open maps. Please try again."
 }

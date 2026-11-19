@@ -37,6 +37,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "location_title": MessageLookupByLibrary.simpleMessage("Location"),
     "logo_title": MessageLookupByLibrary.simpleMessage("Logo"),
     "mall_title": MessageLookupByLibrary.simpleMessage("Mall"),
+    "maps_open_failed": MessageLookupByLibrary.simpleMessage(
+      "Unable to open maps. Please try again.",
+    ),
     "new_services_title": MessageLookupByLibrary.simpleMessage("New Services"),
     "next_appointment_title": MessageLookupByLibrary.simpleMessage(
       "Next Appointment",
