@@ -9,7 +9,9 @@ import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeBranchMap extends StatefulWidget {
-  const HomeBranchMap({super.key, required this.branches});
+  const HomeBranchMap({super.key, required this.branches, required this.onBranchPressed});
+
+  final ValueChanged<HomeBranchData> onBranchPressed;
 
   final List<HomeBranchData> branches;
 
@@ -54,9 +56,14 @@ class _HomeBranchMapState extends State<HomeBranchMap> {
       for (final HomeBranchData branch in widget.branches)
         Marker(
           point: LatLng(branch.latitude, branch.longitude),
-          width: kSpacing * 2,
-          height: kSpacing * 2,
-          child: Icon(Icons.location_on, color: theme.colorScheme.primary, semanticLabel: branch.name),
+          width: 48,
+          height: 48,
+          child: IconButton(
+            tooltip: branch.name,
+            color: theme.colorScheme.primary,
+            onPressed: () => widget.onBranchPressed(branch),
+            icon: const Icon(Icons.location_on),
+          ),
         ),
     ];
 

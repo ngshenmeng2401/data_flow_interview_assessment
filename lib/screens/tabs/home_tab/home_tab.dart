@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/constants/enums.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/discover_tab/discover_article.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab_data.dart';
@@ -19,11 +20,15 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeTab extends StatefulWidget {
+  final VoidCallback onShopPressed;
+  final ValueChanged<PlantCategory> onCategoryPressed;
   final VoidCallback onDiscoverPressed;
   final ValueChanged<String> onArticlePressed;
 
   const HomeTab({
     super.key,
+    required this.onShopPressed,
+    required this.onCategoryPressed,
     required this.onDiscoverPressed,
     required this.onArticlePressed,
   });
@@ -33,8 +38,22 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<HomeTab> {
+  final GlobalKey _newServicesKey = GlobalKey();
+
   @override
   bool get wantKeepAlive => true;
+
+  void _scrollToServices() {
+    final BuildContext? headingContext = _newServicesKey.currentContext;
+    if (headingContext == null) {
+      return;
+    }
+    Scrollable.ensureVisible(
+      headingContext,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
 
   Future<void> _openBranchMapsAsync(HomeBranchData branch) async {
     try {
@@ -63,7 +82,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
     final Lang lang = Lang.of(context);
     final ThemeData theme = Theme.of(context);
     final String locale = Localizations.localeOf(context).toString();
-    final List<HomeCategoryData> categories = <HomeCategoryData>[HomeCategoryData(label: lang.indoor_plants_title, assetIndex: 1), HomeCategoryData(label: lang.outdoor_plants_title, assetIndex: 2), HomeCategoryData(label: lang.succulents_title, assetIndex: 3), HomeCategoryData(label: lang.pots_title, assetIndex: 4), HomeCategoryData(label: lang.plant_care_title, assetIndex: 5)];
+    final List<HomeCategoryData> categories = <HomeCategoryData>[HomeCategoryData(category: PlantCategory.indoor, label: lang.indoor_plants_title, assetIndex: 1), HomeCategoryData(category: PlantCategory.outdoor, label: lang.outdoor_plants_title, assetIndex: 2), HomeCategoryData(category: PlantCategory.succulents, label: lang.succulents_title, assetIndex: 3), HomeCategoryData(category: PlantCategory.pots, label: lang.pots_title, assetIndex: 4), HomeCategoryData(category: PlantCategory.plantCare, label: lang.plant_care_title, assetIndex: 5)];
 
     return ColoredBox(
       color: theme.colorScheme.surface,
@@ -99,10 +118,14 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                       spacing: kSpacing,
                       runSpacing: kSpacing,
                       children: <Widget>[
-                        for (final String label in <String>[lang.shop_title, lang.services_title, lang.posts_title])
+                        for (final (String label, VoidCallback onPressed) in <(String, VoidCallback)>[
+                          (lang.shop_title, widget.onShopPressed),
+                          (lang.services_title, _scrollToServices),
+                          (lang.posts_title, widget.onDiscoverPressed),
+                        ])
                           SizedBox(
                             width: buttonWidth < 96 ? constraints.maxWidth : buttonWidth,
-                            child: AppElevatedButton(onPressed: null, child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis)),
+                            child: AppElevatedButton(onPressed: onPressed, child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis)),
                           ),
                       ],
                     ),
@@ -110,14 +133,14 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                 },
               ),
             ),
-            CategoryStrip(categories: categories),
+            CategoryStrip(categories: categories, onCategoryPressed: widget.onCategoryPressed),
             SizedBox(height: kPadding),
             ColoredBox(
               color: theme.scaffoldBackgroundColor,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  HomeSectionHeading(title: lang.new_services_title, subtitle: lang.recommended_for_you, showViewAll: true, serviceStyle: true),
+                  HomeSectionHeading(key: _newServicesKey, title: lang.new_services_title, subtitle: lang.recommended_for_you, showViewAll: true, serviceStyle: true),
                   Builder(
                     builder: (BuildContext context) {
                       final ServiceCardLayout layout = ServiceCardLayout.measure(context, HomeSampleData.services);
@@ -143,7 +166,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: kSpacing * 2),
-                    child: ShopPlantsStrip(categories: categories),
+                    child: ShopPlantsStrip(categories: categories, onCategoryPressed: widget.onCategoryPressed),
                   ),
                 ],
               ),
@@ -209,7 +232,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
                 children: <Widget>[
                   // TODO need user revisit / complete
                   // Replace this placeholder with the real static map artwork.
-                  const HomeBranchMap(branches: HomeSampleData.branches),
+                  HomeBranchMap(branches: HomeSampleData.branches, onBranchPressed: _openBranchMapsAsync),
                   for (final HomeBranchData branch in HomeSampleData.branches) ...{BranchDetails(data: branch, onAddressTap: () => _openBranchMapsAsync(branch))},
                 ],
               ),

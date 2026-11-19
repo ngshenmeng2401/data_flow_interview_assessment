@@ -1,3 +1,5 @@
+import 'package:data_flow_interview_assessment/constants/enums.dart';
+
 // TODO dummy data / flow
 // Replace this local sample content with approved Home data when available.
 // TODO translate
@@ -41,10 +43,11 @@ class HomeAppointmentData {
 }
 
 class HomeCategoryData {
+  final PlantCategory category;
   final String label;
   final int assetIndex;
 
-  const HomeCategoryData({required this.label, required this.assetIndex});
+  const HomeCategoryData({required this.category, required this.label, required this.assetIndex});
 }
 
 class HomeServiceData {

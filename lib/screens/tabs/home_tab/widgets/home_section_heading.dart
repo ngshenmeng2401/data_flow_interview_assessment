@@ -9,6 +9,7 @@ class HomeSectionHeading extends StatelessWidget {
   final bool serviceStyle;
 
   const HomeSectionHeading({
+    super.key,
     required this.title,
     this.subtitle,
     this.showViewAll = false,

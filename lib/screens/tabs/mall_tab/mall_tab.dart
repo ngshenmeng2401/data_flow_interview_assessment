@@ -1,4 +1,5 @@
 import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/constants/enums.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
 import 'package:data_flow_interview_assessment/utils/app_theme_config.dart';
 import 'package:data_flow_interview_assessment/widgets/content_card.dart';
@@ -9,7 +10,9 @@ import 'package:intl/intl.dart';
 class MallTab extends StatefulWidget {
   final VoidCallback onBack;
 
-  const MallTab({super.key, required this.onBack});
+  final PlantCategory? category;
+
+  const MallTab({super.key, required this.onBack, this.category});
 
   @override
   State<MallTab> createState() => _MallTabState();
@@ -35,12 +38,12 @@ class _MallTabState extends State<MallTab> {
     final Lang lang = Lang.of(context);
     // TODO dummy data / flow
     final List<_MallProduct> catalog = <_MallProduct>[
-      _MallProduct('Peace Lily', lang.indoor_plants_title, 100),
-      _MallProduct('Moth Orchid', lang.indoor_plants_title, 50, originalPrice: 100),
-      _MallProduct('Snake Plant', lang.indoor_plants_title, 100),
-      _MallProduct('Jade Plant', lang.succulents_title, 50, originalPrice: 100),
-      _MallProduct('Aloe Vera', lang.succulents_title, 100),
-      _MallProduct('Mini Rose', lang.outdoor_plants_title, 50, originalPrice: 100),
+      _MallProduct('Peace Lily', lang.indoor_plants_title, PlantCategory.indoor, 100),
+      _MallProduct('Moth Orchid', lang.indoor_plants_title, PlantCategory.indoor, 50, originalPrice: 100),
+      _MallProduct('Snake Plant', lang.indoor_plants_title, PlantCategory.indoor, 100),
+      _MallProduct('Jade Plant', lang.succulents_title, PlantCategory.succulents, 50, originalPrice: 100),
+      _MallProduct('Aloe Vera', lang.succulents_title, PlantCategory.succulents, 100),
+      _MallProduct('Mini Rose', lang.outdoor_plants_title, PlantCategory.outdoor, 50, originalPrice: 100),
     ];
     final String locale = Localizations.localeOf(context).toString();
     final NumberFormat priceFormat = NumberFormat.currency(
@@ -60,7 +63,8 @@ class _MallTabState extends State<MallTab> {
             final List<_MallProduct> products = catalog.where((_MallProduct product) {
               final bool matchesQuery = product.title.toLowerCase().contains(query) ||
                   product.label.toLowerCase().contains(query);
-              return matchesQuery && (!discountedOnly || product.originalPrice != null);
+              final bool matchesCategory = widget.category == null || product.category == widget.category;
+              return matchesCategory && matchesQuery && (!discountedOnly || product.originalPrice != null);
             }).toList();
 
             if (products.isEmpty) {
@@ -240,8 +244,9 @@ class _MallTabState extends State<MallTab> {
 class _MallProduct {
   final String title;
   final String label;
+  final PlantCategory category;
   final double price;
   final double? originalPrice;
 
-  const _MallProduct(this.title, this.label, this.price, {this.originalPrice});
+  const _MallProduct(this.title, this.label, this.category, this.price, {this.originalPrice});
 }

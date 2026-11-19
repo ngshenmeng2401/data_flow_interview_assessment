@@ -1,4 +1,5 @@
 import 'package:data_flow_interview_assessment/app_router.dart';
+import 'package:data_flow_interview_assessment/constants/enums.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/account_tab/account_tab.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/discover_tab/discover_tab.dart';
@@ -20,9 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   final RxInt _selectedIndex = 0.obs;
 
+  final ValueNotifier<(PlantCategory?, int)> _mallRequest =
+      ValueNotifier<(PlantCategory?, int)>((null, 0));
+
   @override
   void dispose() {
     _pageController.dispose();
+    _mallRequest.dispose();
     _selectedIndex.close();
     super.dispose();
   }
@@ -33,6 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     _pageController.jumpToPage(index);
     _selectedIndex.value = index;
+  }
+
+  void _openMall(PlantCategory? category) {
+    _mallRequest.value = (category, _mallRequest.value.$2 + 1);
+    _selectTab(1);
   }
 
   void _openArticle(String id) {
@@ -60,10 +70,21 @@ class _HomeScreenState extends State<HomeScreen> {
           physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
             HomeTab(
+              onShopPressed: () => _openMall(null),
+              onCategoryPressed: _openMall,
               onDiscoverPressed: () => _selectTab(2),
               onArticlePressed: _openArticle,
             ),
-            MallTab(onBack: () => _selectTab(0)),
+            ValueListenableBuilder<(PlantCategory?, int)>(
+              valueListenable: _mallRequest,
+              builder: (BuildContext context, (PlantCategory?, int) request, Widget? child) {
+                return MallTab(
+                  key: ValueKey<int>(request.$2),
+                  category: request.$1,
+                  onBack: () => _selectTab(0),
+                );
+              },
+            ),
             DiscoverTab(onArticlePressed: _openArticle),
             InboxTab(onNoticePressed: _openNotice),
             const AccountTab(),

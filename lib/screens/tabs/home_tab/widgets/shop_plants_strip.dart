@@ -1,4 +1,5 @@
 import 'package:data_flow_interview_assessment/constants/dimensions.dart';
+import 'package:data_flow_interview_assessment/constants/enums.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
 import 'package:data_flow_interview_assessment/screens/tabs/home_tab/home_tab_data.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,9 @@ import 'package:flutter/material.dart';
 class ShopPlantsStrip extends StatefulWidget {
   final List<HomeCategoryData> categories;
 
-  const ShopPlantsStrip({required this.categories});
+  final ValueChanged<PlantCategory> onCategoryPressed;
+
+  const ShopPlantsStrip({required this.categories, required this.onCategoryPressed});
 
   @override
   State<ShopPlantsStrip> createState() => _ShopPlantsStripState();
@@ -106,18 +109,18 @@ class _ShopPlantsStripState extends State<ShopPlantsStrip> {
                             separatorBuilder: (BuildContext context, int index) => const SizedBox(width: kSpacing),
                             itemBuilder: (BuildContext context, int index) {
                               final HomeCategoryData category = widget.categories[index];
-                              return Semantics(
-                                label: category.label,
-                                selected: index == 0,
-                                child: Container(
-                                  width: 54,
-                                  height: 54,
+                              return SizedBox(
+                                width: 54,
+                                height: 54,
+                                child: IconButton(
+                                  tooltip: category.label,
+                                  onPressed: () => widget.onCategoryPressed(category.category),
                                   padding: const EdgeInsets.all(kSpacing),
-                                  decoration: BoxDecoration(
-                                    color: theme.colorScheme.surface,
-                                    shape: BoxShape.circle,
+                                  style: IconButton.styleFrom(
+                                    backgroundColor: theme.colorScheme.surface,
+                                    shape: const CircleBorder(),
                                   ),
-                                  child: Image.asset(
+                                  icon: Image.asset(
                                     'assets/icons/Shop Plants - Icon ${category.assetIndex}.png',
                                     fit: BoxFit.contain,
                                     excludeFromSemantics: true,
