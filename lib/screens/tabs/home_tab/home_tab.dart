@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 part 'home_tab_data.dart';
-part 'home_header.dart';
-part 'balance_summary.dart';
-part 'category_strip.dart';
-part 'home_section_heading.dart';
-part 'service_card.dart';
-part 'shop_plants_strip.dart';
-part 'discoveries_grid.dart';
-part 'discovery_card.dart';
-part 'branch_details.dart';
-part 'home_icon_text.dart';
-part 'home_icon.dart';
-part 'home_asset_image.dart';
+part 'widgets/home_header.dart';
+part 'widgets/balance_summary.dart';
+part 'widgets/category_strip.dart';
+part 'widgets/home_section_heading.dart';
+part 'widgets/service_card.dart';
+part 'widgets/shop_plants_strip.dart';
+part 'widgets/discoveries_grid.dart';
+part 'widgets/discovery_card.dart';
+part 'widgets/branch_details.dart';
+part 'widgets/home_icon_text.dart';
+part 'widgets/home_icon.dart';
+part 'widgets/home_asset_image.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});

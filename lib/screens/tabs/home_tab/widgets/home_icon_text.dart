@@ -1,4 +1,4 @@
-part of 'home_tab.dart';
+part of '../home_tab.dart';
 
 class _HomeIconText extends StatelessWidget {
   final String iconPath;

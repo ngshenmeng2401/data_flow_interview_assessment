@@ -1,4 +1,4 @@
-part of 'home_tab.dart';
+part of '../home_tab.dart';
 
 class _BalanceSummary extends StatelessWidget {
   final String credit;

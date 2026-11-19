@@ -1,4 +1,4 @@
-part of 'home_tab.dart';
+part of '../home_tab.dart';
 
 class _DiscoveryCard extends StatelessWidget {
   final _HomeDiscoveryData data;

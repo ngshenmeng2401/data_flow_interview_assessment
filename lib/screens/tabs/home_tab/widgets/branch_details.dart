@@ -1,4 +1,4 @@
-part of 'home_tab.dart';
+part of '../home_tab.dart';
 
 class _BranchDetails extends StatelessWidget {
   final _HomeBranchData data;
