@@ -9,9 +9,6 @@ class HomeSampleData {
     date: DateTime(2020, 10, 14, 12, 30),
     address: '123 Plant Street, 1/1',
   );
-  static const double credit = 100.0;
-  static const int points = 10;
-  static const int packages = 1;
   static const List<HomeServiceData> services = <HomeServiceData>[
     HomeServiceData(label: 'Lorem Ipsum', title: 'Lorem ipsum dolor sit amet consectetur', price: 10),
     HomeServiceData(label: 'Lorem Ipsum', title: 'Lorem ipsum dolor sit amet consectetur', price: 10),

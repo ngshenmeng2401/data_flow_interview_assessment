@@ -1,6 +1,7 @@
 import 'package:data_flow_interview_assessment/constants/dimensions.dart';
 import 'package:data_flow_interview_assessment/generated/l10n.dart';
 import 'package:data_flow_interview_assessment/widgets/account_profile_header.dart';
+import 'package:data_flow_interview_assessment/widgets/balance_summary.dart';
 import 'package:flutter/material.dart';
 
 class AccountTab extends StatelessWidget {
@@ -27,6 +28,8 @@ class AccountTab extends StatelessWidget {
         const SizedBox(height: kPadding),
         const AccountProfileHeader(),
         const SizedBox(height: kPadding),
+        BalanceSummary.sample(context),
+        const SizedBox(height: kPadding),
         Text(lang.general_title, style: theme.textTheme.titleMedium),
         const SizedBox(height: kSpacing),
         Card(
@@ -48,7 +51,6 @@ class AccountTab extends StatelessWidget {
                     color: theme.colorScheme.outlineVariant,
                   ),
                 ListTile(
-                  enabled: false,
                   leading: Icon(icon),
                   title: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
                   trailing: const Icon(Icons.chevron_right),

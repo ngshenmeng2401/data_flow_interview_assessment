@@ -16,7 +16,7 @@ class AccountProfileHeader extends StatelessWidget {
     final ColorScheme colors = theme.colorScheme;
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: colors.primaryContainer,
+        color: colors.primary,
         borderRadius: BorderRadius.circular(kBorderRadius),
       ),
       child: Padding(
@@ -42,7 +42,7 @@ class AccountProfileHeader extends StatelessWidget {
             Text(
               // TODO translate
               name.isEmpty ? 'Guest' : name,
-              style: theme.textTheme.titleMedium?.copyWith(color: colors.onPrimaryContainer),
+              style: theme.textTheme.titleMedium?.copyWith(color: colors.onPrimary),
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -50,7 +50,7 @@ class AccountProfileHeader extends StatelessWidget {
             if (emailAddress.isNotEmpty)
               Text(
                 emailAddress,
-                style: theme.textTheme.bodyMedium?.copyWith(color: colors.onPrimaryContainer),
+                style: theme.textTheme.bodyMedium?.copyWith(color: colors.onPrimary),
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

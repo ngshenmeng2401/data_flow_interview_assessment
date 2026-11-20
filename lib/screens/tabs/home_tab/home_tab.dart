@@ -16,7 +16,6 @@ import 'package:data_flow_interview_assessment/screens/tabs/home_tab/widgets/sho
 import 'package:data_flow_interview_assessment/utils/app_theme_config.dart';
 import 'package:data_flow_interview_assessment/widgets/app_elevated_button.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeTab extends StatefulWidget {
@@ -83,7 +82,6 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
     super.build(context);
     final Lang lang = Lang.of(context);
     final ThemeData theme = Theme.of(context);
-    final String locale = Localizations.localeOf(context).toString();
     final List<HomeCategoryData> categories = <HomeCategoryData>[HomeCategoryData(category: PlantCategory.indoor, label: lang.indoor_plants_title, assetIndex: 1), HomeCategoryData(category: PlantCategory.outdoor, label: lang.outdoor_plants_title, assetIndex: 2), HomeCategoryData(category: PlantCategory.succulents, label: lang.succulents_title, assetIndex: 3), HomeCategoryData(category: PlantCategory.pots, label: lang.pots_title, assetIndex: 4), HomeCategoryData(category: PlantCategory.plantCare, label: lang.plant_care_title, assetIndex: 5)];
 
     return ColoredBox(
@@ -94,12 +92,7 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin<Ho
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            HomeHeader(
-              data: HomeSampleData.appointment,
-              credit: NumberFormat.currency(locale: locale, symbol: 'RM', decimalDigits: 2).format(HomeSampleData.credit),
-              points: NumberFormat.decimalPattern(locale).format(HomeSampleData.points),
-              packages: NumberFormat.decimalPattern(locale).format(HomeSampleData.packages),
-            ),
+            HomeHeader(data: HomeSampleData.appointment),
             const HomeAssetImage(
               path: 'assets/images/Home Banner.jpg',
               // The supplied banner is 828 by 500; preserve its full artwork.
