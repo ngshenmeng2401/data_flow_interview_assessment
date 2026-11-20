@@ -108,39 +108,27 @@ class _MallTabState extends State<MallTab> {
     return Material(
       color: colors.surface,
       child: Padding(
-        padding: const EdgeInsetsDirectional.fromSTEB(0, kSpacing / 2, kPadding, kSpacing / 2),
-        child: Row(
-          children: <Widget>[
-            IconButton(
-              tooltip: MaterialLocalizations.of(context).backButtonTooltip,
-              icon: const BackButtonIcon(),
-              color: colors.primary,
-              onPressed: widget.onBack,
-            ),
-            Expanded(
-              child: AppSearchField(
-                hintText: lang.search_salon_title,
-                onChanged: (String value) => _query.value = value.trim().toLowerCase(),
-                trailing: Obx(() {
-                  final bool selected = _discountedOnly.value;
-                  return IconButton(
-                    tooltip: lang.discounted_products_only,
-                    isSelected: selected,
-                    style: IconButton.styleFrom(
-                      backgroundColor: selected ? colors.primary : colors.surface,
-                    ),
-                    icon: Image.asset(
-                      'assets/icons/Icon - Filter.png',
-                      width: 22,
-                      color: selected ? colors.onPrimary : colors.onSurfaceVariant,
-                      excludeFromSemantics: true,
-                    ),
-                    onPressed: () => _discountedOnly.value = !selected,
-                  );
-                }),
+        padding: const EdgeInsetsGeometry.symmetric(horizontal: kPadding, vertical: kPadding / 2),
+        child: AppSearchField(
+          hintText: lang.search_salon_title,
+          onChanged: (String value) => _query.value = value.trim().toLowerCase(),
+          trailing: Obx(() {
+            final bool selected = _discountedOnly.value;
+            return IconButton(
+              tooltip: lang.discounted_products_only,
+              isSelected: selected,
+              style: IconButton.styleFrom(
+                backgroundColor: selected ? colors.primary : colors.surface,
               ),
-            ),
-          ],
+              icon: Image.asset(
+                'assets/icons/Icon - Filter.png',
+                width: 22,
+                color: selected ? colors.onPrimary : colors.onSurfaceVariant,
+                excludeFromSemantics: true,
+              ),
+              onPressed: () => _discountedOnly.value = !selected,
+            );
+          }),
         ),
       ),
     );
